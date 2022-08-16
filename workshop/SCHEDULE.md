@@ -13,8 +13,8 @@ A preliminary schedule for the September 2022 Data Lab Virtual Training Workshop
 | Time        | Topic                             | Location |
 |-------------|--------------------------------------------|----------------|
 | **Day 1**   | **2022-09-19** <br> [_**Introduction to R and the Tidyverse**_](https://github.com/AlexsLemonade/training-modules/tree/master/intro-to-R-tidyverse)                      |
-| 12:00 PM    | Welcome, Introductions and Getting Started  <br> [Welcome slides (PDF)](../slides/Workshop-Introduction.pdf)   | Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call) |
- 1:00 PM     | [Introduction to R Slides (PDF)](../slides/Intro-R-RStudio.pdf) <br> [Introduction to base R](https://htmlpreview.github.io/?https://github.com/AlexsLemonade/training-modules/blob/{{site.release_tag}}/intro-to-R-tidyverse/01-intro_to_base_R.nb.html) | Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call)|
+| 12:00 PM    | Welcome, Introductions and Getting Started  | Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call) |
+ 1:00 PM     | Introduction to base R | Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call)|
 | 2:30 PM     | [Introduction to ggplot2](https://htmlpreview.github.io/?https://github.com/AlexsLemonade/training-modules/blob/{{site.release_tag}}/intro-to-R-tidyverse/02-intro_to_ggplot2.nb.html) | Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call) |
 | 3:30 PM     | [Introduction to the tidyverse](https://htmlpreview.github.io/?https://github.com/AlexsLemonade/training-modules/blob/{{site.release_tag}}/intro-to-R-tidyverse/03-intro_to_tidyverse.nb.html) | Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call) |
 | 4:30        | Questions and introduction to the exercises | Zoom: [Breakout Rooms](../virtual-setup/zoom-procedures.md#using-zoom-breakout-rooms) |
