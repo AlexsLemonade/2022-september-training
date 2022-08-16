@@ -11,7 +11,7 @@ A preliminary schedule for the September 2022 Data Lab Virtual Training Workshop
 
 | Time        | Topic                             | Location |
 |-------------|--------------------------------------------|----------------|
-| **Day 1**   | **2022-09-19** <br> [_**Introduction to R and the Tidyverse**_](https://github.com/AlexsLemonade/training-modules/tree/master/intro-to-R-tidyverse)                      |
+| **Day 1**   | **2022-09-19** <br> _**Introduction to R and the Tidyverse**_                 |
 | 12:00 PM    | Welcome, Introductions and Getting Started  | Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call) |
  1:00 PM     | Introduction to base R | Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call)|
 | 2:30 PM     | Introduction to ggplot2 | Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call) |
