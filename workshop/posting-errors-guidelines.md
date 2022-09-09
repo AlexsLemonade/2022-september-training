@@ -2,8 +2,7 @@
 title: Guidelines for posting an error to Slack
 nav_title: Posting an Error
 ---
-<p><img style = "padding: 0px 15px 0px 0px; float: left;" src = "screenshots/slack-cancer-data-science-logo.png" width = "75"></p>
-<p style="margin-top: 20px;"> </p>
+<img style = "padding: 0px 15px 0px 0px; float: left;" src = "screenshots/slack-cancer-data-science-logo.png" width = "75">
 We use the **Cancer Data Science Slack** team administered by the CCDL for communication.
 If you haven't joined Cancer Data Science Slack yet, you will need to follow the [setup procedures described here](../virtual-setup/slack-procedures.md).
 
