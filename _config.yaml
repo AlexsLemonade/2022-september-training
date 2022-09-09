@@ -1,29 +1,24 @@
 title: CCDL Training
-training_title: MONTH-TOPIC
+training_title: 2022 September Single Cell Training
 # The name of the repository (e.g., 2020-may-training)
 # We use training-specific-template to help with development
-repository: training-specific-template
+repository: 2022-september-training
 # Full URL to the repository
 # Again, using training-specific-template to aid in development
-repository_url: https://github.com/AlexsLemonade/training-specific-template
-start_date: YYYY-MM-DD
-end_date: YYYY-MM-DD
+repository_url: https://github.com/AlexsLemonade/2022-september-training
+start_date: 2022-09-19
+end_date: 2022-09-23
 # Specific release in AlexsLemonade/training-modules
 # We use master to make development easier
 release_tag: master
 # The Docker user will almost always be ccdl, which is why this is here
 docker_user: ccdl
-docker_repo: DOCKER-REPOSITORY
-docker_tag: DOCKER-TAG
+docker_repo: training_rnaseq
+docker_tag: 2022-september
 # These are for loading Docker images from a file; only relevant for in-person
 docker_targz: ccdl_docker_image.tar.gz
 docker_tar: ccdl_docker_image.tar
-# The image ID and size can be obtained by running `docker images` once you have a copy of the correct image for the training
-docker_image_id: IMAGEID
-docker_size: SIZE
-# How we have historically distributed materials in-person
-training_zip: TRAINING-ZIP
-training_unzip_folder: TRAINING-UNZIP-FOLDER
+
 
 # Theme and theme options
 theme: minima
