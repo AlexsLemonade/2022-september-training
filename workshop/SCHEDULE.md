@@ -34,7 +34,7 @@ A preliminary schedule for the September 2022 Data Lab Virtual Training Workshop
 |             | Exercise and [consultation session](workshop-structure.md#consultation-sessions) | [Slack channel](../virtual-setup/slack-procedures.md#general-use) |
 | 5:00  PM    | End             |         
 | **Day 4**   | **2022-09-22**  <br> _**Introduction to Pathway Analysis**_ | | 
-| 12:00 PM    | Introduction to Pathway Analysis |  Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call) |
+| 12:00 PM    | Introduction to Pathway Analysis <br> [Pathway Analysis slides (PDF)](../slides/2022-09-22_Intro-to-Pathway-Analysis.pdf) |  Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call) |
 | 12:30 PM    | Pathway analysis: Over-representation analysis | Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call) |
 | 2:00 PM     | Pathway analysis: Gene Set Enrichment Analysis | Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call) | 
 | 3:00 PM     | Questions and introduction to the exercise | Zoom: [Breakout Rooms](../virtual-setup/zoom-procedures.md#using-zoom-breakout-rooms) |
