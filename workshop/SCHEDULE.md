@@ -13,7 +13,7 @@ A preliminary schedule for the September 2022 Data Lab Virtual Training Workshop
 |-------------|--------------------------------------------|----------------|
 | **Day 1**   | **2022-09-19** <br> _**Introduction to R and the Tidyverse**_                 |
 | 12:00 PM    | Welcome, Introductions and Getting Started  | Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call) |
- 1:00 PM     | Introduction to base R | Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call)|
+ 1:00 PM      | Introduction to R and RStudio <br> [Introduction to R and RStudio Slides (PDF)](../slides/2022-09-19_Intro-R-RStudio.pdf) <br> Introduction to base R | Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call)|
 | 2:30 PM     | Introduction to ggplot2 | Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call) |
 | 3:30 PM     | Introduction to the tidyverse | Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call) |
 | 4:30        | Questions and introduction to the exercises | Zoom: [Breakout Rooms](../virtual-setup/zoom-procedures.md#using-zoom-breakout-rooms) |
