@@ -12,8 +12,8 @@ A preliminary schedule for the September 2022 Data Lab Virtual Training Workshop
 | Time        | Topic                             | Location |
 |-------------|--------------------------------------------|----------------|
 | **Day 1**   | **2022-09-19** <br> _**Introduction to R and the Tidyverse**_                 |
-| 12:00 PM    | Welcome, Introductions and Getting Started  | Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call) |
- 1:00 PM      | Introduction to R and RStudio <br> [Introduction to R and RStudio Slides (PDF)](../slides/2022-09-19_Intro-R-RStudio.pdf) <br> Introduction to base R | Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call)|
+| 12:00 PM    | Welcome, Introductions and Getting Started <br> [Workshop Intro slides (PDF)](../slides/2022-09-19_CCDL-Workshop-Intro.pdf) | Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call) |
+| 1:00 PM     | Introduction to R and RStudio <br> [Introduction to R and RStudio Slides (PDF)](../slides/2022-09-19_Intro-R-RStudio.pdf) <br> Introduction to base R | Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call)|
 | 2:30 PM     | Introduction to ggplot2 | Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call) |
 | 3:30 PM     | Introduction to the tidyverse | Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call) |
 | 4:30        | Questions and introduction to the exercises | Zoom: [Breakout Rooms](../virtual-setup/zoom-procedures.md#using-zoom-breakout-rooms) |
@@ -28,7 +28,7 @@ A preliminary schedule for the September 2022 Data Lab Virtual Training Workshop
 |             | Exercise and [consultation session](workshop-structure.md#consultation-sessions) | [Slack channel](../virtual-setup/slack-procedures.md#general-use) |
 | 5:00  PM    | End             |
 | **Day 3**   | **2022-09-21**  <br> _**Single-cell RNA-seq, Day 2**_ |
-| 12:00 PM    | scRNA-seq:  Dimension reduction & visualization | Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call)|
+| 12:00 PM    | scRNA-seq:  Dimension reduction & visualization <br> [Dimension Reduction & Clustering slides (PDF)](../slides/2022-09-21_Dimension-Reduction-Clustering.pdf)| Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call)|
 | 1:30 PM     | scRNA-seq: Clustering and marker identification | Zoom: [Main Session](../virtual-setup/zoom-procedures.md#joining-a-zoom-call) |
 | 3:00 PM     | Questions and introduction to the exercise | Zoom: [Breakout Rooms](../virtual-setup/zoom-procedures.md#using-zoom-breakout-rooms) |
 |             | Exercise and [consultation session](workshop-structure.md#consultation-sessions) | [Slack channel](../virtual-setup/slack-procedures.md#general-use) |
