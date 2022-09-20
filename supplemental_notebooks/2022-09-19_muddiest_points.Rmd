@@ -38,7 +38,7 @@ Now you can open up this file and run it on the RStudio Server.
 As we discussed in the Introduction to Tidyverse lesson, there is an R-specific file format called "RDS"  (R Data Serialized/Single). 
 This file format will store data exactly as you have it in your R environment, making it easy to export and load in any kind of R object (aka variable). 
 In addition, RDS files can be compressed, meaning they will take up less space on your computer.
-In base R, RDS files can be saved with the function `saveRDS()` and read in with `readRDS`.
+In base R, RDS files can be saved with the function `saveRDS()` and read in with `readRDS()`.
 There are complementary functions in the `readr` package, `readr::write_rds()` and `readr::read_rds()`, that can be used instead.
 The main difference between base R and tidyverse versions of these functions are that, when writing to a file, `saveRDS()` will compress the data by default but `readr::write_rds()` will not unless you explicitly specificy with the `compress` argument (see `?readr::write_rds()` for help!).
 
