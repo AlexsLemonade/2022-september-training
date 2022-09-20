@@ -203,6 +203,7 @@ ggplot(
 
 
 We'll also point out this super useful Bionconductor package for volcano plots called [`EnhancedVolcano`](https://bioconductor.org/packages/release/bioc/vignettes/EnhancedVolcano/inst/doc/EnhancedVolcano.html), which can automatically take care of a lot of labeling and styling for you, without needing to use `ggplot2` directly.
+Handily though, the plots it creates _are_ `ggplot2` plots, so you can customize them further with the same layer syntax that you have been using!
 You can also [peruse this material](https://github.com/AlexsLemonade/training-modules/blob/fa3abe50c17ca369b352ae22e2367096a51fef5f/RNA-seq/05-nb_cell_line_DESeq2.Rmd) from a different workshop of ours on Bulk RNA-Seq analysis where we introduce this package, as another example of some genomic data visualization.
 
 
