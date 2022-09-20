@@ -1,0 +1,206 @@
+---
+title: "Day 1: Intro to R & tidyverse Supplementary Notebook"
+author: Stephanie J. Spielman
+date: 2022-09-20
+output:   
+  html_notebook: 
+    toc: true
+    toc_float: true
+---
+
+
+## Introduction
+
+This notebook addresses some questions that came up after the first day of the CCDL workshop.
+
+- [RDS and RData formats](#rds-and-rdata-formats)
+- [Labeling individual points in plots](#labeling-individual-points-in-plots)
+
+### How to use this notebook: 
+
+While it is fine to just read this page as is, if you want to get the Rmarkdown notebook itself to work with, you can follow the following steps:
+
+1. Click the `Code` button in the upper right of this page and choose `Download Rmd` to save this notebook (`2022-09-20_muddiest_points.Rmd`) to your computer.
+If you have RStudio installed on your computer, you can then open the file directly.
+
+Otherwise you can add it to the CCDL RStudio server to work with it there with the following additional steps:
+
+2. Navigate to RStudio server.  
+3. In the `File` pane, navigate to `training-modules/intro-to-R-tidyverse`.     
+4. Click the `Upload` button in the `File` pane.   
+5. Click `Choose file` and find this `Rmd` file on your computer, then click `OK`  
+
+Now you can open up this file and run it on the RStudio Server. 
+
+
+## RDS and RData formats
+
+As we discussed in the Introduction to Tidyverse lesson, there is an R-specific file format called "RDS"  (R Data Serialized/Single). 
+This file format will store data exactly as you have it in your R environment, making it easy to export and load in any kind of R object (aka variable). 
+In addition, RDS files can be compressed, meaning they will take up less space on your computer.
+In base R, RDS files can be saved with the function `saveRDS()` and read in with `readRDS()`.
+There are complementary functions in the `readr` package, `readr::write_rds()` and `readr::read_rds()`, that can be used instead.
+The main difference between base R and tidyverse versions of these functions is that, when writing to a file, `saveRDS()` will compress the data by default but `readr::write_rds()` will not unless you explicitly specify a compression method with the `compress` argument (see `?readr::write_rds()` for help!).
+
+There is a second kind of R-specific file format for exporting data called "RData," which you might see as files with the extension ".Rda". 
+Like RDS files, RData files save R objects in exactly as they are in your R environment, and we use functions `save()` and `load()` to export and read them. 
+
+
+However, we at the Data Lab strongly prefer RDS files to RData files when exporting R-specific data objects. 
+We mainly have this preference because you, the programmer and scientist, have _much more control_ over an object loaded from an RDS file vs. an RData file.
+
+First, RDS files can only contain one object, but RData files can contain an arbitrary number of objects.
+We like files to only contain one object, so that we when read in a file, we are explicitly reading in one object corresponding to that file. 
+Otherwise, we might be loading in multiple objects that could interfere with our environment, and we wouldn't necessarily know about it!
+If there are multiple R-specific data formats you wish to export to files, we recommend creating a separate RDS file for each.
+
+Second, RDS files only store the representation of the object itself, _not_ its name. 
+By contrast, RData files retain the name of any object you save; when you load an RData file, all object(s) in that file are automatically loaded into your current R session with whatever variable names they had at the initial export.
+This can get a little dangerous and lead to unintended code bugs, because you are loading variables into your R environment without explicitly naming those variables yourself! 
+For example, imagine you have defined an object called `sce` that contains a `SingleCellExperiment` object in your R session.
+Then, you load an RData file that contains some data you want to use.
+It is entirely possible that, _without your knowledge_, that RData file could have been storing a dataset also named `sce`. 
+This would _overwrite_ and effectively delete your `sce` variable, which will end up breaking all of your code.
+
+This difference can be partly seen in the way we read RDS vs RData files, for example:
+
+```{r, eval=FALSE}
+# Read in an RDS file and save to a variable called `my_data`
+my_data <- readr::read_rds("my_rds_file.rds")
+
+
+# Read in an RDA file, but we don't save it to a variable, because
+#  whatever variable name the given data had when it was saved to the 
+#  RData file long, long ago will be created automatically in the R session
+load("my_rda_file.rda")
+```
+
+You'll notice that when using `load()`, we don't actually create a variable - this is because variables stored in the RData file are just automatically placed into your R environment, and as mentioned, that has potential to cause frustrating bugs.
+
+
+So, if you have RData files you are now interested in converting to RDS files, you can do the following:
+
+- Use `load()` to load in your RData file
+- Look at your environment pane to see the names of the variables that were loaded in. 
+ You can also use the R command `ls()` to see all defined variables in the current session.
+- Determine which objects you want to save as RDS files, and export _each separately_ as an RDS file, with either `saveRDS()` or `readr::write_rds()`.
+
+
+
+## Labeling individual points in plots
+
+Often, we wish to label points in plots, for example labeling individual points (e.g. points representing genes of interest) in a volcano plot. 
+The example code below shows you how to include labeling for a subset of points of interest.
+
+First, let's create a toy dataset to plot with.
+Here, I've taken a random subset of 10 "male_female" contrast rows from the data frame we plotted in during the [Introduction to `ggplot2` session](https://htmlpreview.github.io/?https://github.com/AlexsLemonade/training-modules/blob/2022-september/intro-to-R-tidyverse/02-intro_to_ggplot2.nb.html).
+
+
+```{r}
+# Create a small dataset to use here as a plotting example.
+gene_data <- data.frame(
+  gene_symbol = c("BOLA3",  "ATP6V0E2",  "ATG12",  "ASCL1",  "PSMC5",  "IMPA1",  "FABP7",  "SCARB2",  "FRMD6",  "SKA2"),
+  log_fold_change = c(1.46,  10.9,  0.168,  -1.39,  8.94,  -1.10,  -5.15,  -3.28,  2.33,  6.35),
+  neg_log10_p = c(0.378, 2.05, 0.128, 0.418, 3.12, 0.506, 1.70, 4.37, 0.929, 5.10)
+)
+
+# Print the data:
+gene_data
+```
+
+
+
+Now, let's make a plot where we also label points whose log fold change is greater than 5 (for the purposes of this example, we won't worry too much about significant p-values!).
+A helpful R package for labeling points, while ensuring those labels do not overlap one another, is [`ggrepel`](https://ggrepel.slowkow.com/). 
+We'll use the function `geom_text_repel()` from this package to create our labels.
+If you are using this package for the first time, you'll have to install it with `install.packages()`:
+```{r, eval=FALSE}
+install.packages("ggrepel")
+```
+
+
+First, let's plot a regular volcano plot without point labels, as we did during the workshop.
+
+```{r}
+# Load libraries needed for plotting:
+library(ggplot2)
+library(ggrepel)
+
+ggplot(
+  gene_data, 
+  aes(
+    x = log_fold_change,
+    y = neg_log10_p,
+    color = log_fold_change
+  )
+) + 
+  geom_point() + 
+  theme_bw() # add bw theme
+```
+
+Now, let's add some labels with the `ggrepel` function `geom_text_repel()`, again focusing only on points with >5 log fold change.
+
+
+```{r}
+ggplot(
+  gene_data, 
+  aes(
+    x = log_fold_change,
+    y = neg_log10_p,
+    color = log_fold_change
+  )
+) + 
+  geom_point() +
+  # This layer adds labels:
+  geom_text_repel(
+    # First, we want only a subset of data,which we can specify with the `data` argument. 
+    # We can use dplyr::filter for this!
+    data = dplyr::filter(gene_data, log_fold_change > 5),
+    # Next, we set up the label to map to the `gene_symbol` column in our data
+    aes(label = gene_symbol)
+  ) + 
+  theme_bw() 
+```
+
+If you prefer that all labels are the same color rather than matching the color of their points, you can specify by adding a `color` argument to `geom_text_repel`:
+
+
+```{r}
+ggplot(
+  gene_data, 
+  aes(
+    x = log_fold_change,
+    y = neg_log10_p,
+    color = log_fold_change
+  )
+) + 
+  geom_point() +
+  # This layer adds labels:
+  geom_text_repel(
+    # First, we want only a subset of data,which we can specify with the `data` argument. 
+    # We can use dplyr::filter for this!
+    data = dplyr::filter(gene_data, log_fold_change > 5),
+    # Next, we set up the label to map to the `gene_symbol` column in our data
+    aes(label = gene_symbol),
+    # Specify the same color (here, black) for all points
+    color = "black"
+  ) + 
+  theme_bw() 
+```
+
+
+We'll also point out this super useful Bionconductor package for volcano plots called [`EnhancedVolcano`](https://bioconductor.org/packages/release/bioc/vignettes/EnhancedVolcano/inst/doc/EnhancedVolcano.html), which can automatically take care of a lot of labeling and styling for you, without needing to use `ggplot2` directly.
+Handily though, the plots it creates _are_ `ggplot2` plots, so you can customize them further with the same layer syntax that you have been using!
+You can also [peruse this material](https://github.com/AlexsLemonade/training-modules/blob/fa3abe50c17ca369b352ae22e2367096a51fef5f/RNA-seq/05-nb_cell_line_DESeq2.Rmd) from a different workshop of ours on Bulk RNA-Seq analysis where we introduce this package, as another example of some genomic data visualization.
+
+
+## Session Info
+
+```{r}
+sessionInfo()
+```
+
+
+
+
+
