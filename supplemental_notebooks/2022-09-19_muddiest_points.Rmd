@@ -93,28 +93,15 @@ Often, we wish to label points in plots, for example labeling individual points 
 The example code below shows you how to include labeling for a subset of points of interest.
 
 First, let's create a toy dataset to plot with.
-Here, I've taken a random subset of 10 "male_female" contrast rows from the data frame we plotted in Intro ggplot.
+Here, I've taken a random subset of 10 "male_female" contrast rows from the data frame we plotted in during the [Introduction to `ggplot2` session](https://htmlpreview.github.io/?https://github.com/AlexsLemonade/training-modules/blob/2022-september/intro-to-R-tidyverse/02-intro_to_ggplot2.nb.html).
 
 
 ```{r}
-# Create a small dataset to use here as a plotting example. This data is actually
-# a random selection of 10 "male_female" contrast rows from the data frame we 
-# plotted in Intro ggplot.
-# The tribble() function from the tibble package (tibble::tribble()) will create a
-#  tibble, which _is_ a data frame but with a couple helpful tidyverse features
-#  More info here: https://tibble.tidyverse.org/articles/tibble.html
-gene_data <- tibble::tribble(
-  ~gene_symbol, ~log_fold_change, ~neg_log10_p,
-  "BOLA3",       1.46,            0.378,
-  "ATP6V0E2",    10.9,            2.05, 
-  "ATG12",       0.168,           0.128,
-  "ASCL1",      -1.39,            0.418,
-  "PSMC5",       8.94,            3.12, 
-  "IMPA1",      -1.10,            0.506,
-  "FABP7",      -5.15,            1.70, 
-  "SCARB2",     -3.28,            4.37, 
-  "FRMD6",       2.33,            0.929,
-  "SKA2",        6.35,            5.10 
+# Create a small dataset to use here as a plotting example.
+gene_data <- data.frame(
+  gene_symbol = c("BOLA3",  "ATP6V0E2",  "ATG12",  "ASCL1",  "PSMC5",  "IMPA1",  "FABP7",  "SCARB2",  "FRMD6",  "SKA2"),
+  log_fold_change = c(1.46,  10.9,  0.168,  -1.39,  8.94,  -1.10,  -5.15,  -3.28,  2.33,  6.35),
+  neg_log10_p = c(0.378, 2.05, 0.128, 0.418, 3.12, 0.506, 1.70, 4.37, 0.929, 5.10)
 )
 
 # Print the data:
