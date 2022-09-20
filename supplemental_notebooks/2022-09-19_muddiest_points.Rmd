@@ -40,7 +40,7 @@ This file format will store data exactly as you have it in your R environment, m
 In addition, RDS files can be compressed, meaning they will take up less space on your computer.
 In base R, RDS files can be saved with the function `saveRDS()` and read in with `readRDS()`.
 There are complementary functions in the `readr` package, `readr::write_rds()` and `readr::read_rds()`, that can be used instead.
-The main difference between base R and tidyverse versions of these functions are that, when writing to a file, `saveRDS()` will compress the data by default but `readr::write_rds()` will not unless you explicitly specificy with the `compress` argument (see `?readr::write_rds()` for help!).
+The main difference between base R and tidyverse versions of these functions is that, when writing to a file, `saveRDS()` will compress the data by default but `readr::write_rds()` will not unless you explicitly specify a compression method with the `compress` argument (see `?readr::write_rds()` for help!).
 
 There is a second kind of R-specific file format for exporting data called "RData," which you might see as files with the extension ".Rda". 
 Like RDS files, RData files save R objects in exactly as they are in your R environment, and we use functions `save()` and `load()` to export and read them. 
