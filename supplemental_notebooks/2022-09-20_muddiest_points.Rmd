@@ -1,0 +1,162 @@
+title: 'Day 2: scRNA-seq Quantification Supplementary Notebook'
+author: "Ally Hawkins"
+date: '2022-09-20'
+output:
+  html_document:
+    toc: yes
+    df_print: paged
+  html_notebook:
+    toc: yes
+    toc_float: yes
+---
+
+## Introduction
+
+This notebook addresses some questions that came up after the second day of class covering scRNA-seq quantification. 
+
+- [SingleCellExperiment objects](#singleCellExperiment-objects)
+- [Understanding UMIs](#understanding-UMIs)
+
+### How to use this notebook: 
+
+While it is fine to just read this page as is, if you want to get the Rmarkdown notebook itself to work with, you can follow the following steps:
+
+1. Click the `Code` button in the upper right of this page and choose `Download Rmd` to save this notebook (`2021-11-02_muddiest_points.Rmd`) to your computer.
+If you have RStudio installed on your computer, you can then open the file directly.
+
+Otherwise you can add it to the CCDL RStudio server to work with it there with the following additional steps:
+
+2. Navigate to RStudio server.  
+3. In the `File` pane, navigate to `training-modules/scRNA-seq`.     
+4. Click the `Upload` button in the `File` pane.   
+5. Click `Choose file` and find this `Rmd` file on your computer, then click `OK`  
+
+
+Now you can open up this file and run it on the Server. 
+
+## Setup 
+
+```{r}
+library(magrittr)
+library(ggplot2)
+library(SingleCellExperiment)
+```
+## Understanding UMIs
+
+When preparing a single-cell library for sequencing using the tag based methods discussed in class, individual cells are encapsulated in droplets. 
+Inside that droplet is a bead containing thousands of barcoded oligonucleotides that consist of a common cell barcode and a unique molecular identifier (UMI).
+As the cell is lysed, RNA transcripts will be tagged with a single oligonucleotide so that RNA from a given cell will all obtain the same cell barcode and their own UMI. 
+No two RNA transcripts from a given cell will contain the same UMI so that all of the transcripts are now unique and the UMI can be used to identify all original transcripts that were present in the cell at the time that RNA was isolated for sequencing. 
+
+In order to sequence the RNA that you have isolated, it will need to be amplified through PCR amplification. 
+All of the RNA in each of the cells will be pooled together and amplified using a common primer so that you now have a pool of RNA where there are duplicates of the original RNA, and therefore multiple copies of the same UMI. 
+When quantifying gene expression in the dataset, all transcripts that have the same UMI are actually an artifact of PCR amplification, because during initial capture, no two RNA molecules should have the same UMI. This means that any transcripts with the same UMI should be counted only as a single transcript because they are merely just PCR copies of the same original transcript and do not accurately reflect gene expression. 
+To quantify gene expression of a particular gene in a given cell we count up the total number transcripts that map to that gene and contain unique UMIs, discarding any duplicate UMIs as they are artifacts of PCR amplification. 
+The final value that you see in the counts matrix will correspond to that total number of unique UMIs, after duplicates have removed. 
+
+Let's read in the filtered data saved after performing filtering of the the bladder sample in `02-filtering_scRNA.Rmd` and take a closer look at the counts data:
+
+```{r}
+# file paths to filtered sce 
+data_dir <- file.path("data", "tabula-muris")
+filtered_sce_file <- file.path(data_dir, "filtered", "filtered_sce.rds")
+
+# read in filtered sce 
+filtered_bladder_sce <- readr::read_rds(filtered_sce_file)
+```
+
+
+```{r}
+counts(filtered_bladder_sce)[1:5, 1:5]
+```
+
+Here we are looking at the first 5 columns and the first 5 rows of the counts matrix. 
+You can see that the names of the columns contain nucleotide strings, these are the cell barcodes. 
+This means that for any gene that has expression > 0 in that column, they had transcripts that were tagged with that same cell barcode and were from the same original cell. 
+
+We can also look at individual genes and identify how many copies of each of the genes were originally present in the cell, PRIOR to any PCR amplification. 
+For example, the gene ENSMUSG00000000001 had 2 copies present in all cells except for the 5th cell which shows 7 copies. 
+This means that there were 2 transcripts present in the cell that mapped to this gene that each were tagged with their own UMI, and therefore there were 2 UMIs associated with this gene.
+Any duplicates of that UMI that were present after amplification were removed prior to making this counts matrix as they were only an artifact of amplification. 
+
+
+## SingleCellExperiment objects 
+
+In the `02-filtering_scRNA.Rmd` notebook, we introduced the concept of using a `SingleCellExperiment` object to store the cell by gene counts matrix after running Alevin. 
+The reason we like to use an object like this, rather than simply store the gene by cell counts matrix as a matrix on its own, is because with a `SingleCellExperiment` object we can add additional information about each of the cell barcodes in the `colData` and each of the genes identified in our experiment in the `rowData`. 
+
+Additionally, you saw when we performed normalization that this object then stored both our original `counts` matrix and our new, normalized `logcounts` matrix. 
+You will also see as we move through the course that as we perform additional analysis, those results can be stored in the same `SingleCellExperiment` object. 
+This is helpful for keeping all of the details and analysis pertaining to this sample packaged in one piece.
+
+Let's take a look at some of the components of a `SingleCellExperiment` and see how they work together. 
+
+First, let's just take a look at the entire `SingleCellExperiment`. 
+
+```{r}
+filtered_bladder_sce
+```
+
+When you look at the object, you will notice that this one holds 1 assay, the `counts` assay. 
+The `counts` assay is the main meat of the object and houses the sparse matrix that is the gene by cell counts matrix obtained from quantification with Alevin. 
+The `dim` slot will correspond to the dimensions of the matrix that lives in the `counts` assay. 
+The `rownames` will correspond to the names of the rows and the `colnames` will correspond to the names of the columns for the matrix in the `counts` assay. 
+In the case of a `SingleCellExperiment`, the row names are gene identifiers and the column names are the cell barcodes.
+
+
+You will also see two additional slots, `colData` and `rowData`. 
+These hold two DataFrames that contain metadata information about the columns and the rows of the `counts` assay, respectively. 
+
+In the `colData`, the row names will correspond to the column names of the `counts` assay, i.e. the cell barcodes. 
+Let's take a look at the column names and see if they are in fact equal to the row names of the `colData`.
+
+```{r}
+head(colnames(filtered_bladder_sce))
+```
+
+The first 5 column names, should also be the same cell barcodes that are found in the first 5 rows of the `colData`, does this appear to be true? 
+
+```{r}
+head(colData(filtered_bladder_sce))
+```
+
+Let's check by using `all.equal` to make sure that all of the column names are the same as the rownames of the `colData` as it appears to be with the first 5. 
+
+```{r}
+all.equal(colnames(filtered_bladder_sce), rownames(colData(filtered_bladder_sce)))
+```
+
+This shows us that the column names of our `SingleCellExperiment` object, which contain the cell barcodes found in our dataset, are equal to the rownames of the `colData`.
+When we looked at the head of `colData`, we saw that `colData` stores a DataFrame where the columns each have metadata corresponding to each cell barcode in the counts matrix. 
+
+Another way to access `colData` is to use the `$` operator, and we can directly access any of the columns that are found in the `colData`. 
+
+```{r}
+# using the $ operator we can access a vector with the total umi counts per cell 
+filtered_bladder_sce$sum 
+```
+
+All of these same properties are found in the `rowData` as well and we anticipate that the row names of our `SingleCellExperiment` will be equivalent to the row names of the DataFrame from the `rowData`. 
+
+```{r}
+all.equal(rownames(filtered_bladder_sce), rownames(rowData(filtered_bladder_sce)))
+```
+
+Just like with the `colData`, inside the `rowData` is a DataFrame where each column contains metadata about each of the genes. 
+Let's take a look at the `rowData` to see what type of information is stored about the genes in this particular `SingleCellExperiment`. 
+
+```{r}
+head(rowData(filtered_bladder_sce))
+```
+ 
+Here, we cannot access the columns of the `rowData` using the `$` directly from our `SingleCellExperiment`, but we can instead use the `$` if we specifically grab the `rowData` first.
+
+```{r}
+rowData(filtered_bladder_sce)$mean[1:10]
+```
+
+For more information on working with `SingleCellExperiments`, we encourage you to take a look at [The Essentials of sce from Orchestrating Single Cell Analysis](https://robertamezquita.github.io/orchestratingSingleCellAnalysis/data-infrastructure.html#the-essentials-of-sce). 
+
+```{r}
+sessionInfo()
+```
