@@ -1,3 +1,4 @@
+---
 title: 'Day 2: scRNA-seq Quantification Supplementary Notebook'
 author: "Ally Hawkins"
 date: '2022-09-20'
@@ -14,10 +15,10 @@ output:
 
 This notebook addresses some questions that came up after the second day of class covering scRNA-seq quantification. 
 
-- [SingleCellExperiment objects](#singleCellExperiment-objects)
 - [Understanding UMIs](#understanding-UMIs)
+- [SingleCellExperiment objects](#singleCellExperiment-objects)
 
-### How to use this notebook: 
+### How to use this notebook
 
 While it is fine to just read this page as is, if you want to get the Rmarkdown notebook itself to work with, you can follow the following steps:
 
